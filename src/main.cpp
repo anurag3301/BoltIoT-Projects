@@ -7,10 +7,11 @@ void setup() {
 void loop() {
   int s ;
   
-  while(Serial.available()==0){            //wait for input in serial monitor
+  while(Serial.available()==0){
   }
   s = Serial.read();
   int x = digitalRead(11);
+  Serial.flush();
   Serial.print(x);
   
 }
