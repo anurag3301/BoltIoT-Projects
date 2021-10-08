@@ -13,17 +13,23 @@ mybolt = Bolt(bolt_api_key, device_id)      # Connecting to the cloud using the 
 def get_youtube_data(key, id):
     url  = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + id\
             + "&key=" + key
-    response = requests.get(url)
-    data = json.loads(response.text)
-    return {"subs" : data["items"][0]["statistics"]["subscriberCount"],\
-            "views": data["items"][0]["statistics"]["viewCount"]}
+    try:
+        response = requests.get(url)
+        data = json.loads(response.text)
+        return {"subs" : data["items"][0]["statistics"]["subscriberCount"],\
+                "views": data["items"][0]["statistics"]["viewCount"]}
+    except:
+        return None
 
 
 while True:
     data = get_youtube_data(youtube_api, channel_id)
-    subs = str(data["subs"])
-    views = str(data["views"])
-    send = subs+ "$" + views 
+    if data:
+        subs = str(data["subs"])
+        views = str(data["views"])
+        send = subs+ "$" + views 
+    else:
+        send = "-1$-1"
     response = mybolt.serialWrite(send)    
     print(response)
     time.sleep(30)

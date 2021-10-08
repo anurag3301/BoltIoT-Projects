@@ -1,5 +1,4 @@
 #include<Arduino.h>
-
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
@@ -27,10 +26,18 @@ void loop(){
             }
             val[index] += inString[i];
         }
-        lcd.setCursor(0, 0);
-        lcd.print("Subs " + val[0]);
-        lcd.setCursor(0, 1);
-        lcd.print("Views " + val[1]);
+        if(val[0][0] != '-'){
+          lcd.setCursor(0, 0);
+          lcd.print("Subs " + val[0]);
+          lcd.setCursor(0, 1);
+          lcd.print("Views " + val[1]);
+        }
+        else{
+          lcd.setCursor(0, 0);
+          lcd.print("Some error");
+          lcd.setCursor(0, 1);
+          lcd.print("occured!!");
+        }
     }
 }
 
