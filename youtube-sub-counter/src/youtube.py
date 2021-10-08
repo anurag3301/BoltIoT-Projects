@@ -6,7 +6,16 @@ from boltiot import Bolt
 bolt_api_key = "0f05f3f5-7704-43fa-ab27-4efd68da9639"  # Replace the string with the API key 
 device_id = "BOLT8024024"    # Replace the string with your Bolt ID
 youtube_api = "AIzaSyDyNfLg1j0wRmoHuRD_WmJSp9i5WgcMpQ8"
-channel_id = "UClqdtHozFJQsFI46mcsrchw"
+channel_id = "UCDzhFuVYou1D8w1ABZo3b9A"
 
 mybolt = Bolt(bolt_api_key, device_id)      # Connecting to the cloud using the API key and Bolt ID
 
+def get_youtube_data(key, id):
+    url  = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + id\
+            + "&key=" + key
+    response = requests.get(url)
+    data = json.loads(response.text)
+    return {"subs" : data["items"][0]["statistics"]["subscriberCount"],\
+            "views": data["items"][0]["statistics"]["viewCount"]}
+
+print(get_youtube_data(youtube_api, channel_id))
