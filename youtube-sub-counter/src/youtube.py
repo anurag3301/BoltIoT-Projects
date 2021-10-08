@@ -18,4 +18,12 @@ def get_youtube_data(key, id):
     return {"subs" : data["items"][0]["statistics"]["subscriberCount"],\
             "views": data["items"][0]["statistics"]["viewCount"]}
 
-print(get_youtube_data(youtube_api, channel_id))
+
+while True:
+    data = get_youtube_data(youtube_api, channel_id)
+    subs = str(data["subs"])
+    views = str(data["views"])
+    send = subs+ "$" + views 
+    response = mybolt.serialWrite(send)    
+    print(response)
+    time.sleep(60)
