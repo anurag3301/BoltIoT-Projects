@@ -14,9 +14,23 @@ void setup(){
 }
 
 void loop(){
-      lcd.setCursor(0, 0);
-      lcd.print("Subs: ");
-      lcd.setCursor(0, 1);
-      lcd.print("Viewes: ");
+  String inString = "";
+    String val[2] = {"", ""};
+    if (Serial.available() > 0){
+        lcd.clear();
+        inString = Serial.readString();
+        int index = 0;
+        for (int i = 0; i < inString.length(); i++){
+            if (inString[i] == '$'){
+                index = 1;
+                continue;
+            }
+            val[index] += inString[i];
+        }
+        lcd.setCursor(0, 0);
+        lcd.print("Subs " + val[0]);
+        lcd.setCursor(0, 1);
+        lcd.print("Views " + val[1]);
+    }
 }
 

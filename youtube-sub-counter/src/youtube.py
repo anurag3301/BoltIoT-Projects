@@ -26,4 +26,4 @@ while True:
     send = subs+ "$" + views 
     response = mybolt.serialWrite(send)    
     print(response)
-    time.sleep(60)
+    time.sleep(30)
