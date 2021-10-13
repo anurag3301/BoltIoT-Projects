@@ -2,16 +2,13 @@ from boltiot import Bolt #import necessary libraries
 import time #conf contains Bolt device id and API key, available from Bolt cloud dashboard
 import requests
 import json
-telegram_chat_id = "-1001528661810"
-telegram_bot_id = "bot2089179531:AAEJmt4P4kUUkQIG0oowd3Lpx-HNhYPA7Jo"
-API_KEY = "0f05f3f5-7704-43fa-ab27-4efd68da9639"
-DEVICE_ID = "BOLT8024024"
+import config
 
 def send_telegram_message(message):
     """Sends message via Telegram"""
-    url = "https://api.telegram.org/" + telegram_bot_id + "/sendMessage"
+    url = "https://api.telegram.org/" + config.telegram_bot_id + "/sendMessage"
     data = {
-        "chat_id": telegram_chat_id,
+        "chat_id": config.telegram_chat_id,
         "text": message
     }
     try:
@@ -33,8 +30,7 @@ def send_telegram_message(message):
 
 
 
-mybolt = Bolt(API_KEY, DEVICE_ID) #Create bolt object
-
+mybolt = Bolt(config.API_KEY, config.DEVICE_ID) #Create bolt object
 
 response = json.loads(mybolt.serialWrite(1))
 print(response)
